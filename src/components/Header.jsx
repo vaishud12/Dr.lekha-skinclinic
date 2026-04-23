@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Menu, X, Phone, Calendar } from 'lucide-react';
-import { clinicInfo } from '../mock';
+import { Menu, X } from 'lucide-react';
+import logo from '../Images/1000723428.jpg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,120 +9,155 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    // Apply scroll effect only on the homepage
+    if (location.pathname === '/') {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 20);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [location.pathname]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About Doctor' },
-    { path: '/weight-management', label: 'Weight Management' },
-    { path: '/skin-care', label: 'Skin Care' },
-    { path: '/blog', label: 'Blog' },
-    { path: '/contact', label: 'Contact' }
+    { path: 'services', label: 'Services' },
+    { path: 'about', label: 'About' },
+    { path: 'contact', label: 'Contact' },
+    { path: '/book-appointment', label: 'Book Appointment' },
   ];
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-white'
-      }`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex flex-col">
-            <span className="text-2xl font-bold text-teal-700">Dr. Lekha Jadhav</span>
-            <span className="text-xs text-gray-600 -mt-1">Weight Management & Skin Care</span>
-          </Link>
+    <>
+      {/* Fix horizontal overflow globally caused by header */}
+      <style>{`
+        html, body, #root {
+          overflow-x: hidden;
+          max-width: 100%;
+          width: 100%;
+          box-sizing: border-box;
+        }
+      `}</style>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive(link.path)
-                    ? 'text-teal-700 bg-teal-50'
-                    : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+      <header
+        style={{ width: '100vw', left: 0, right: 0, boxSizing: 'border-box' }}
+        className={`fixed top-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-200'
+            : 'bg-white/10 backdrop-blur-md border-b border-white/20'
+        }`}
+      >
+        {/* Constrained inner container */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ boxSizing: 'border-box' }}>
+          <div className="flex items-center justify-between h-16 sm:h-20">
 
-          {/* Desktop CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-3">
-            <a href={`tel:${clinicInfo.phone}`}>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Phone className="w-4 h-4" />
-                Call Now
-              </Button>
-            </a>
-            <Link to="/book-appointment">
-              <Button size="sm" className="bg-teal-600 hover:bg-teal-700 gap-2">
-                <Calendar className="w-4 h-4" />
-                Book Appointment
-              </Button>
+            {/* Logo */}
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <img
+                src={logo}
+                alt="Clinic Logo"
+                className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+              />
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 text-gray-700 hover:text-teal-700 transition-colors"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Desktop Nav — lg and above only */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {navLinks.map((link) =>
+                link.path.startsWith('/') ? (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                      isActive(link.path)
+                        ? 'text-teal-700 bg-teal-50'
+                        : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap text-gray-700 hover:text-teal-700 hover:bg-gray-50 transition-all duration-200"
+                  >
+                    {link.label}
+                  </button>
+                )
+              )}
+            </nav>
+
+            {/* Hamburger button — below lg only */}
+            <button
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              className="lg:hidden flex-shrink-0 p-2 rounded-md text-gray-700 hover:text-teal-700 hover:bg-gray-100 transition-colors duration-200"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-100">
-            <nav className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive(link.path)
-                      ? 'text-teal-700 bg-teal-50'
-                      : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
-                <a href={`tel:${clinicInfo.phone}`}>
-                  <Button variant="outline" className="w-full gap-2">
-                    <Phone className="w-4 h-4" />
-                    Call Now
-                  </Button>
-                </a>
-                <Link to="/book-appointment" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-teal-600 hover:bg-teal-700 gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Book Appointment
-                  </Button>
-                </Link>
-              </div>
+        {/* Mobile dropdown */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="bg-white border-t border-gray-100 shadow-lg">
+            <nav
+              className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col gap-1"
+              style={{ boxSizing: 'border-box' }}
+            >
+              {navLinks.map((link) =>
+                link.path.startsWith('/') ? (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`w-full block px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 ${
+                      isActive(link.path)
+                        ? 'text-teal-700 bg-teal-50'
+                        : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:text-teal-700 hover:bg-gray-50 transition-colors duration-150"
+                  >
+                    {link.label}
+                  </button>
+                )
+              )}
             </nav>
           </div>
-        )}
-      </div>
-    </header>
+        </div>
+      </header>
+    </>
   );
 };
 
 export default Header;
-
-

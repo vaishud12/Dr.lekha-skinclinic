@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { clinicInfo } from '../mock';
 
 const Footer = () => {
@@ -16,10 +16,12 @@ const Footer = () => {
               Specialized medical clinic offering personalized weight management and advanced skin care treatments with over 12 years of expertise.
             </p>
             <div className="flex space-x-3">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-teal-600 transition-colors">
-                <FaFacebook className="w-4 h-4" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-teal-600 transition-colors">
+              <a
+                href="https://www.instagram.com/kayakalp.weight.skin.hair"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-teal-600 transition-colors"
+              >
                 <FaInstagram className="w-4 h-4" />
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-teal-600 transition-colors">
@@ -36,16 +38,13 @@ const Footer = () => {
                 <Link to="/" className="text-sm hover:text-teal-400 transition-colors">Home</Link>
               </li>
               <li>
-                <Link to="/about" className="text-sm hover:text-teal-400 transition-colors">About Doctor</Link>
+                <Link className="text-sm hover:text-teal-400 transition-colors">Services</Link>
               </li>
               <li>
-                <Link to="/weight-management" className="text-sm hover:text-teal-400 transition-colors">Weight Management</Link>
+                <Link className="text-sm hover:text-teal-400 transition-colors">About Us</Link>
               </li>
               <li>
-                <Link to="/skin-care" className="text-sm hover:text-teal-400 transition-colors">Skin Care</Link>
-              </li>
-              <li>
-                <Link to="/blog" className="text-sm hover:text-teal-400 transition-colors">Blog</Link>
+                <Link className="text-sm hover:text-teal-400 transition-colors">Contact</Link>
               </li>
               <li>
                 <Link to="/book-appointment" className="text-sm hover:text-teal-400 transition-colors">Book Appointment</Link>
@@ -82,8 +81,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-teal-500 flex-shrink-0" />
-                <a href={`mailto:${clinicInfo.email}`} className="text-sm hover:text-teal-400 transition-colors">
-                  {clinicInfo.email}
+                <a
+                  href={`mailto:${clinicInfo.email}`}
+                  className="text-sm hover:text-teal-400 transition-colors"
+                >
+                  Email Us
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -102,6 +104,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
               © {new Date().getFullYear()} Dr. Lekha Jadhav. All rights reserved.
+              <span className="block text-xs">Copyright © {new Date().getFullYear()} Vaishnavi Devardekar. Unauthorized use is prohibited.</span>
             </p>
             <div className="flex gap-6 text-sm">
               <Link to="/privacy" className="text-gray-400 hover:text-teal-400 transition-colors">

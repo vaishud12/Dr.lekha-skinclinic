@@ -30,6 +30,10 @@ module.exports = {
           800: '#9a3412',
           900: '#7c2d12',
         },
+        medicalTeal: '#008080', // Authority & Healing
+        deepCharcoal: '#333333', // Professionalism
+        champagneGold: '#D4AF37', // Premium/Luxury
+        softGrey: '#F5F5F5', // Background
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],

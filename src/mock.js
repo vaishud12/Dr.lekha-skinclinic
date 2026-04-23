@@ -1,12 +1,17 @@
 // Mock data for Dr. Lekha Jadhav's Medical Clinic Website
-
+import image2 from './Images/pexels-photo-4586713.jpeg';
+import image3 from './Images/pexels-photo-7446680.jpeg';
+import pcos from './Images/PCOS-Weight-Loss-Diet-3.png'
+import image4 from './Images/photo-1467453678174-768ec283a940.jpg';
+import medicalweight from './Images/What-is-Medical-Weight-Loss.jpeg'
+import adskin from './Images/Oxyjet-Treatment.jpg.webp'
 export const clinicInfo = {
   name: "Dr. Lekha Jadhav",
   tagline: "Weight Management & Skin Care Clinic",
-  phone: "+91 98765 43210",
-  whatsapp: "+919876543210",
-  email: "drlekhajadhav@clinic.com",
-  address: "123, Medical Plaza, Pune, Maharashtra - 411001",
+  phone: "+91 76663 20828",
+  whatsapp: "917666320828",
+  email: "skinsolutionsclinicpine7@gmail.com",
+  address: "Shraddha Hospital - A Project by Panchamrut Lifecare LLP, survey No 43, Parashar Society, Pune Nagar Rd, Ashoka Nagar, Kharadi, Pune, Maharashtra 411014",
   workingHours: {
     weekdays: "Monday to Saturday: 10:00 AM – 7:00 PM",
     sunday: "Sunday: By appointment only"
@@ -16,7 +21,7 @@ export const clinicInfo = {
 export const doctorInfo = {
   name: "Dr. Lekha Jadhav",
   qualifications: "MBBS, MD (Dermatology), Fellowship in Aesthetic Medicine",
-  experience: "12+ Years",
+  experience: "5+ Years",
   specialization: ["Weight Management", "Obesity Care", "Skin Care", "Aesthetic Medicine"],
   bio: "Dr. Lekha Jadhav is a renowned medical professional specializing in holistic weight management and advanced skin care treatments. With over 12 years of clinical experience, she combines evidence-based medicine with personalized care to help patients achieve their health and wellness goals.",
   philosophy: "I believe in treating the root cause, not just the symptoms. Every patient deserves a customized treatment plan that respects their unique body, lifestyle, and goals. My approach integrates medical expertise with compassionate care to deliver sustainable, life-changing results.",
@@ -30,7 +35,7 @@ export const services = [
     title: "Medical Weight Loss",
     shortDesc: "Doctor-supervised weight loss programs tailored to your body's unique needs",
     icon: "Scale",
-    image: "https://images.unsplash.com/photo-1522844990619-4951c40f7eda?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHx3ZWlnaHQlMjBsb3NzfGVufDB8fHx8MTc3NDE4ODE0OXww&ixlib=rb-4.1.0&q=85",
+    image: medicalweight,
     features: [
       "Personalized diet & nutrition plans",
       "Medical evaluation & monitoring",
@@ -44,7 +49,7 @@ export const services = [
     title: "Obesity & Lifestyle Disorders",
     shortDesc: "Comprehensive management of obesity-related health conditions",
     icon: "Activity",
-    image: "https://images.pexels.com/photos/6975466/pexels-photo-6975466.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    image: image4,
     features: [
       "Diabetes & hypertension management",
       "Thyroid disorder treatment",
@@ -58,7 +63,7 @@ export const services = [
     title: "PCOS Weight Management",
     shortDesc: "Specialized treatment for PCOS-related weight and hormonal issues",
     icon: "Heart",
-    image: "https://images.unsplash.com/photo-1467453678174-768ec283a940?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwbGlmZXN0eWxlfGVufDB8fHx8MTc3NDE4ODE3MHww&ixlib=rb-4.1.0&q=85",
+    image: pcos,
     features: [
       "Hormonal balance restoration",
       "Customized nutrition plans",
@@ -72,7 +77,7 @@ export const services = [
     title: "Acne & Pigmentation Treatment",
     shortDesc: "Advanced medical solutions for clear, radiant skin",
     icon: "Sparkles",
-    image: "https://images.pexels.com/photos/7446690/pexels-photo-7446690.jpeg",
+    image: image3,
     features: [
       "Medical-grade acne treatment",
       "Pigmentation & dark spot removal",
@@ -86,7 +91,7 @@ export const services = [
     title: "Anti-Aging & Skin Rejuvenation",
     shortDesc: "Non-surgical aesthetic procedures for youthful, glowing skin",
     icon: "Sparkle",
-    image: "https://images.pexels.com/photos/4586713/pexels-photo-4586713.jpeg",
+    image: image2,
     features: [
       "Chemical peels & facials",
       "Skin tightening treatments",
@@ -100,7 +105,7 @@ export const services = [
     title: "Advanced Skin Treatments",
     shortDesc: "State-of-the-art dermatological procedures for various skin concerns",
     icon: "Star",
-    image: "https://images.pexels.com/photos/7446680/pexels-photo-7446680.jpeg",
+    image: adskin,
     features: [
       "Laser treatments",
       "Skin texture improvement",
@@ -113,7 +118,7 @@ export const services = [
 export const whyChooseUs = [
   {
     title: "Medical Expertise",
-    description: "12+ years of specialized experience in weight management and dermatology with proven results",
+    description: "5+ years of specialized experience in weight management and dermatology with proven results",
     icon: "Award"
   },
   {
@@ -298,7 +303,7 @@ export const faqs = {
 
 export const stats = [
   { number: "2000+", label: "Happy Patients" },
-  { number: "12+", label: "Years Experience" },
+  { number: "5+", label: "Years Experience" },
   { number: "15+", label: "Treatment Options" },
   { number: "95%", label: "Success Rate" }
 ];
