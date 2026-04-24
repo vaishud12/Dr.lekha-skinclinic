@@ -10,7 +10,7 @@ export const clinicInfo = {
   tagline: "Weight Management & Skin Care Clinic",
   phone: "+91 76663 20828",
   whatsapp: "917666320828",
-  email: "skinsolutionsclinicpine7@gmail.com",
+  email: "kayakalp.drlekha@gmail.com",
   address: "Shraddha Hospital - A Project by Panchamrut Lifecare LLP, survey No 43, Parashar Society, Pune Nagar Rd, Ashoka Nagar, Kharadi, Pune, Maharashtra 411014",
   workingHours: {
     weekdays: "Monday to Saturday: 10:00 AM – 7:00 PM",

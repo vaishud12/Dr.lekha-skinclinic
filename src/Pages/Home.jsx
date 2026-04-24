@@ -121,14 +121,15 @@ const Home = () => {
         {/* Background Video */}
         <div className="absolute inset-0">
           <video
-            src="/coverage.mp4" // Path to the video in the public folder
+            src="/dr%20video.mp4"
             autoPlay
             loop
             muted
+            controls
             playsInline
-            className="w-full h-full object-cover transform rotate-90"
+            className="w-full h-full object-cover transform"
           ></video>
-          <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/40 to-transparent"></div>
+          <div className="absolute inset-0 "></div>
         </div>
         
         <div className="container mx-auto relative z-10 pb-8">
