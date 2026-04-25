@@ -163,4 +163,71 @@ select:focus {
   animation: pop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
+/* Responsive Video Styling */
+video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Hero Video Specific Styling */
+.hero-video {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mobile (Portrait) - Full video width visible */
+@media (max-width: 640px) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Mobile (Landscape) */
+@media (max-width: 640px) and (orientation: landscape) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Tablet (Portrait) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* Tablet (Landscape) and Small Laptop */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* Extra small screens (very small phones) */
+@media (max-width: 375px) {
+  .hero-video {
+    object-fit: cover;
+    object-position: center center;
+  }
+}
 

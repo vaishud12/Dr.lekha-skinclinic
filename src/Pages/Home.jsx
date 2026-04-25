@@ -10,49 +10,26 @@ import { clinicInfo, services, whyChooseUs, testimonials, stats } from '../mock'
 import ctaBgImg from '../Images/1000723428.jpg';
 
 const Home = () => {
-  const [isServicesVisible, setIsServicesVisible] = useState(false);
-  const [isWhyChooseVisible, setIsWhyChooseVisible] = useState(false);
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
   const [isTestimonialsVisible, setIsTestimonialsVisible] = useState(false);
-  const servicesRef = useRef(null);
-  const whyChooseRef = useRef(null);
+  const [statCounts, setStatCounts] = useState(stats.map(() => 0));
+  const statsRef = useRef(null);
   const testimonialsRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsServicesVisible(true);
-        } else {
-          setIsServicesVisible(false); // Reset when scrolling away
-        }
-      },
-      { 
-        threshold: 0.2,
-        rootMargin: '-50px' // Trigger when 50px into viewport
-      }
-    );
-
-    const currentRef = servicesRef.current;
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsWhyChooseVisible(true);
-        } else {
-          setIsWhyChooseVisible(false);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === statsRef.current) {
+            setIsStatsVisible(entry.isIntersecting);
+          } else if (entry.target === testimonialsRef.current) {
+            if (entry.isIntersecting) {
+              setIsTestimonialsVisible(true);
+            } else {
+              setIsTestimonialsVisible(false);
+            }
+          }
+        });
       },
       { 
         threshold: 0.2,
@@ -60,46 +37,50 @@ const Home = () => {
       }
     );
 
-    const currentRef = whyChooseRef.current;
+    const statsEl = statsRef.current;
+    const testimonialsEl = testimonialsRef.current;
 
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (statsEl) observer.observe(statsEl);
+    if (testimonialsEl) observer.observe(testimonialsEl);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (statsEl) observer.unobserve(statsEl);
+      if (testimonialsEl) observer.unobserve(testimonialsEl);
     };
   }, []);
 
+  // Animate stat numbers
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsTestimonialsVisible(true);
-        } else {
-          setIsTestimonialsVisible(false);
-        }
-      },
-      { 
-        threshold: 0.2,
-        rootMargin: '-50px'
-      }
-    );
+    if (isStatsVisible) {
+      stats.forEach((stat, index) => {
+        const numericValue = parseInt(stat.number.replace(/[^0-9]/g, ''));
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const stepValue = numericValue / steps;
+        let currentStep = 0;
 
-    const currentRef = testimonialsRef.current;
-
-    if (currentRef) {
-      observer.observe(currentRef);
+        const interval = setInterval(() => {
+          currentStep++;
+          if (currentStep <= steps) {
+            setStatCounts(prevCounts => {
+              const newCounts = [...prevCounts];
+              newCounts[index] = Math.floor(stepValue * currentStep);
+              return newCounts;
+            });
+          } else {
+            setStatCounts(prevCounts => {
+              const newCounts = [...prevCounts];
+              newCounts[index] = numericValue;
+              return newCounts;
+            });
+            clearInterval(interval);
+          }
+        }, duration / steps);
+      });
+    } else {
+      setStatCounts(stats.map(() => 0));
     }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
+  }, [isStatsVisible]);
 
   const getIcon = (iconName) => {
     const icons = {
@@ -117,80 +98,75 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[700px] flex items-end">
+      <section className="relative pt-10 pb-6 sm:pt-20 sm:pb-8 md:pt-24 md:pb-12 lg:pt-32 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[350px] sm:min-h-[550px] md:min-h-[600px] lg:min-h-[750px] flex items-end">
         {/* Background Video */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <video
-            src="/dr%20video.mp4"
+            src={`${process.env.PUBLIC_URL}/kayakal.mp4`}
             autoPlay
             loop
             muted
-            controls
             playsInline
-            className="w-full h-full object-cover transform"
+            preload="auto"
+            className="w-full h-full object-cover hero-video"
+            style={{ position: 'absolute', top: 0, left: 0 }}
+            onError={(e) => console.error('Video failed to load:', e)}
           ></video>
-          <div className="absolute inset-0 "></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
         </div>
         
-        <div className="container mx-auto relative z-10 pb-8">
-          <div className="max-w-4xl">
+        <div className="container mx-auto relative z-10 pb-4 sm:pb-6 md:pb-8 lg:pb-12">
+          <div className="max-w-4xl w-full">
             
             {/* Main Heading */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
-              {"Transform Your Health & Confidence".split('').map((char, index) => (
+            <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3 md:mb-4 drop-shadow-2xl">
+              {"Transform Your Body skin & Confidence with Expert Care".split(' ').map((word, index) => (
                 <span
                   key={index}
-                  className="inline-block opacity-0 animate-fade-in"
-                  style={{ animationDelay: `${index * 50}ms` }}
+                  className="inline-block opacity-0 animate-fade-in-up mr-2"
+                  style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  {char === ' ' ? '\u00A0' : char}
+                  {word}
                 </span>
               ))}
             </h1>
             
             {/* Description */}
-            <p className="text-sm sm:text-base text-teal-50 leading-relaxed max-w-xl">
-              {"Expert medical care for sustainable weight loss, PCOS management, and advanced skin treatments. Personalized, science-backed solutions under qualified medical supervision.".split('').map((char, index) => (
-                <span
-                  key={index}
-                  className="inline-block opacity-0 animate-fade-in"
-                  style={{ animationDelay: `${index * 70}ms` }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/95 leading-relaxed drop-shadow-xl animate-fade-in-up opacity-0" style={{ animationDelay: '600ms' }}>
+              Expert medical care for sustainable weight loss, PCOS management, and advanced skin treatments. Personalized, science-backed solutions under qualified medical supervision.
             </p>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="relative -mt-16 px-4 sm:px-6 lg:px-8 pb-12 z-20">
+      <section ref={statsRef} className="relative -mt-3 sm:-mt-10 md:-mt-12 lg:-mt-16 px-4 sm:px-6 lg:px-8 pb-12 z-20">
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-                <div className="text-4xl font-bold text-teal-700 mb-2 group-hover:text-teal-600 transition-colors">{stat.number}</div>
-                <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
+            {stats.map((stat, index) => {
+              const suffix = stat.number.replace(/[0-9]/g, '');
+              return (
+                <div key={index} className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 lg:p-6 shadow-lg sm:shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-teal-700 mb-1 sm:mb-2 group-hover:text-teal-600 transition-colors">
+                    {statCounts[index]}{suffix}
+                  </div>
+                  <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 font-medium leading-tight">{stat.label}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" ref={servicesRef} className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="container mx-auto">
-          {/* Heading animates from left */}
-          <div className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-[1500ms] ease-out ${
-            isServicesVisible 
-              ? 'opacity-100 translate-x-0' 
-              : 'opacity-0 -translate-x-32'
-          }`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 transform hover:scale-105 transition-transform duration-300">
+          {/* Heading */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
               Our Specialized Services
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 opacity-0 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
               Comprehensive medical solutions for your weight management and skin care needs
             </p>
           </div>
@@ -199,14 +175,8 @@ const Home = () => {
             {services.map((service, index) => (
               <Card 
                 key={service.id} 
-                className={`glass-card group hover:shadow-2xl transition-all duration-[1500ms] ease-out border-none overflow-hidden ${
-                  isServicesVisible 
-                    ? 'opacity-100 translate-x-0' 
-                    : 'opacity-0 -translate-x-32'
-                }`}
-                style={{ 
-                  transitionDelay: isServicesVisible ? `${300 + index * 200}ms` : '0ms'
-                }}
+                className="glass-card group hover:shadow-2xl transition-shadow duration-300 border-none overflow-hidden animate-fade-in-up"
+                style={{ animationDelay: `${200 + index * 150}ms` }}
               >
                 <div className="glass-effect"></div>
                 <div className="relative h-48 overflow-hidden rounded-t-xl z-10">
@@ -228,24 +198,10 @@ const Home = () => {
                     {service.features.map((feature, idx) => (
                       <li 
                         key={idx} 
-                        className={`flex items-start gap-2 text-sm text-gray-700 transition-all duration-[1200ms] ease-out ${
-                          isServicesVisible 
-                            ? 'opacity-100 translate-x-0' 
-                            : 'opacity-0 -translate-x-16'
-                        }`}
-                        style={{ 
-                          transitionDelay: isServicesVisible ? `${500 + (index * 200) + (idx * 150)}ms` : '0ms'
-                        }}
+                        className="flex items-start gap-2 text-sm text-gray-700"
                       >
                         <CheckCircle2 
-                          className={`w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5 transition-all duration-500 ease-out ${
-                            isServicesVisible 
-                              ? 'opacity-100 scale-100 rotate-0' 
-                              : 'opacity-0 scale-0 -rotate-90'
-                          }`}
-                          style={{ 
-                            transitionDelay: isServicesVisible ? `${600 + (index * 200) + (idx * 150)}ms` : '0ms'
-                          }}
+                          className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5"
                         />
                         <span className="transition-colors duration-300">{feature}</span>
                       </li>
@@ -259,17 +215,13 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section id="about" ref={whyChooseRef} className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto">
-          <div className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-[1500ms] ease-out ${
-            isWhyChooseVisible 
-              ? 'opacity-100 translate-x-0' 
-              : 'opacity-0 translate-x-32'
-          }`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
               Why to Choose Us?
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 opacity-0 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
               Your health deserves the best care. Here's what makes us different.
             </p>
           </div>
@@ -278,14 +230,8 @@ const Home = () => {
             {whyChooseUs.map((item, index) => (
               <div 
                 key={index} 
-                className={`group transition-all duration-[1500ms] ease-out ${
-                  isWhyChooseVisible 
-                    ? 'opacity-100 translate-x-0' 
-                    : 'opacity-0 translate-x-32'
-                }`}
-                style={{ 
-                  transitionDelay: isWhyChooseVisible ? `${300 + index * 200}ms` : '0ms'
-                }}
+                className="group animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 h-full relative overflow-hidden">
                   {/* Animated loader background */}
