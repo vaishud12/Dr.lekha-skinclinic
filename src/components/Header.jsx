@@ -62,7 +62,7 @@ const Header = () => {
         className={`fixed top-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-200'
-            : 'bg-white/10 backdrop-blur-md border-b border-white/20'
+            : 'bg-transparent backdrop-blur-sm border-b border-white/10'
         }`}
       >
         {/* Constrained inner container */}
@@ -87,8 +87,8 @@ const Header = () => {
                     to={link.path}
                     className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                       isActive(link.path)
-                        ? 'text-teal-700 bg-teal-50'
-                        : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
+                        ? isScrolled ? 'text-teal-700 bg-teal-50' : 'text-white bg-teal-600/80'
+                        : isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-50' : 'text-white hover:text-teal-100 hover:bg-white/10'
                     }`}
                   >
                     {link.label}
@@ -97,7 +97,9 @@ const Header = () => {
                   <button
                     key={link.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap text-gray-700 hover:text-teal-700 hover:bg-gray-50 transition-all duration-200"
+                    className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                      isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-50' : 'text-white hover:text-teal-100 hover:bg-white/10'
+                    }`}
                   >
                     {link.label}
                   </button>
@@ -108,7 +110,9 @@ const Header = () => {
             {/* Hamburger button — below lg only */}
             <button
               onClick={() => setIsMenuOpen((prev) => !prev)}
-              className="lg:hidden flex-shrink-0 p-2 rounded-md text-gray-700 hover:text-teal-700 hover:bg-gray-100 transition-colors duration-200"
+              className={`lg:hidden flex-shrink-0 p-2 rounded-md transition-colors duration-200 ${
+                isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-100' : 'text-white hover:text-teal-100 hover:bg-white/10'
+              }`}
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
             >
