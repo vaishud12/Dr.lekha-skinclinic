@@ -155,28 +155,43 @@ Please confirm the appointment at your earliest convenience.`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-peach-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+    <div className="bg-gradient-to-br from-teal-50 via-white to-peach-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-2 lg:items-stretch">
 
           {/* Image — visible on ALL screens */}
-          <div className="w-full">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="w-full flex flex-col">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl flex-1 min-h-[300px]">
               <img
                 src={appointmentImg}
                 alt="Medical Consultation"
-                className="w-full object-cover"
-                style={{
-                  /* Tall crop on mobile, taller on desktop */
-                  height: 'clamp(220px, 45vw, 700px)',
-                }}
+                className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent" />
+              
+              {/* Info Card — overlays at bottom on desktop only */}
+              <div className="hidden lg:block absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md rounded-xl shadow-xl p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Why Book With Us?</h3>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-600 rounded-full flex-shrink-0" />
+                    Expert medical consultation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-600 rounded-full flex-shrink-0" />
+                    Personalized treatment plans
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-600 rounded-full flex-shrink-0" />
+                    Flexible appointment scheduling
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            {/* Floating Info Card — sits below image on mobile, overlaps on desktop */}
-            <div className="mt-4 lg:mt-0 lg:absolute lg:bottom-8 lg:left-8 lg:right-8 bg-white/90 backdrop-blur-md rounded-xl shadow-xl p-5 lg:p-6">
-              <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">Why Book With Us?</h3>
+            {/* Info Card — below image on mobile only */}
+            <div className="lg:hidden mt-4 bg-white/90 backdrop-blur-md rounded-xl shadow-xl p-5">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Why Book With Us?</h3>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-teal-600 rounded-full flex-shrink-0" />
