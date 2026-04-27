@@ -1,4 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+/* Import CINZEL (Headings) and GOTHAM alternative (Inter as fallback) */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Gotham font - using CDN or fallback to system fonts */
+@font-face {
+    font-family: 'Gotham';
+    src: local('Gotham'), local('Avenir Next'), local('Avenir'), local('Montserrat');
+    font-weight: 400;
+    font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
@@ -11,17 +20,19 @@
     
     body {
         margin: 0;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        font-family: 'Gotham', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
             "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
             "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        background-color: theme('colors.softGrey');
+        background-color: theme('colors.warmWhite');
         color: theme('colors.deepCharcoal');
     }
 
     h1, h2, h3, h4, h5, h6 {
-        color: theme('colors.medicalTeal');
+        font-family: 'Cinzel', Georgia, serif;
+        color: theme('colors.primaryTeal');
+        font-weight: 600;
     }
 
     code {
@@ -30,23 +41,23 @@
     }
 
     a {
-        color: theme('colors.medicalTeal');
+        color: theme('colors.primaryTeal');
     }
 
     a:hover {
-        color: theme('colors.champagneGold');
+        color: theme('colors.lotusGold');
     }
 }
 
-/* Glass Effect Card for Services */
+/* Glass Effect Card for Services - Updated with new palette */
 .glass-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 244, 236, 0.7); /* Warm White with transparency */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(225, 193, 110, 0.3); /* Lotus Gold border */
   border-radius: 1rem;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(41, 75, 83, 0.15); /* Deep Forest Teal shadow */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -60,7 +71,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(20, 184, 166, 0.3),
+    rgba(54, 117, 127, 0.3), /* Primary Teal */
     transparent
   );
   transition: left 0.5s ease;
@@ -74,9 +85,9 @@
 
 .glass-card:hover {
   transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(20, 184, 166, 0.4);
-  box-shadow: 0 15px 45px 0 rgba(20, 184, 166, 0.25);
+  background: rgba(255, 244, 236, 0.9); /* Warm White */
+  border: 1px solid rgba(225, 193, 110, 0.5); /* Lotus Gold */
+  box-shadow: 0 15px 45px 0 rgba(54, 117, 127, 0.25); /* Primary Teal shadow */
 }
 
 .glass-effect {
@@ -87,9 +98,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(20, 184, 166, 0.1) 0%,
-    rgba(5, 150, 105, 0.05) 50%,
-    rgba(6, 182, 212, 0.1) 100%
+    rgba(54, 117, 127, 0.1) 0%, /* Primary Teal */
+    rgba(41, 75, 83, 0.05) 50%, /* Deep Forest Teal */
+    rgba(225, 193, 110, 0.1) 100% /* Lotus Gold */
   );
   opacity: 0;
   transition: opacity 0.3s ease;

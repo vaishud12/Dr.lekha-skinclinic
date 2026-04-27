@@ -117,7 +117,7 @@ export const services = [
 
 export const whyChooseUs = [
   {
-    title: "Medical Expertise",
+    title: "Medicated Expertise",
     description: "5+ years of specialized experience in weight management and dermatology with proven results",
     icon: "Award"
   },
@@ -302,10 +302,10 @@ export const faqs = {
 };
 
 export const stats = [
-  { number: "2000+", label: "Happy Patients" },
+  { number: "300+", label: "Happy Patients" },
   { number: "5+", label: "Years Experience" },
-  { number: "15+", label: "Treatment Options" },
-  { number: "95%", label: "Success Rate" }
+  { number: "20+", label: "Treatment Options" },
+  { number: "20+", label: "Serving states" }
 ];
 
 export const appointmentSlots = [

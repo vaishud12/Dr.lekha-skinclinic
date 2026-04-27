@@ -6,38 +6,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // New Brand Color Palette
+        primaryTeal: '#36757F',
+        lotusGold: '#E1C16E',
+        warmWhite: '#FFF4EC',
+        deepForestTeal: '#294B53',
+        
+        // Teal shades for versatility
         teal: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+          50: '#f0fafa',
+          100: '#d9f0f2',
+          200: '#b3e1e5',
+          300: '#8dd2d8',
+          400: '#67c3cb',
+          500: '#36757F', // Primary Teal
+          600: '#2e626a',
+          700: '#294B53', // Deep Forest Teal
+          800: '#1f383e',
+          900: '#152529',
         },
-        peach: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
-          800: '#9a3412',
-          900: '#7c2d12',
-        },
-        medicalTeal: '#008080', // Authority & Healing
-        deepCharcoal: '#333333', // Professionalism
-        champagneGold: '#D4AF37', // Premium/Luxury
-        softGrey: '#F5F5F5', // Background
+        
+        // Legacy colors for backwards compatibility
+        medicalTeal: '#36757F',
+        deepCharcoal: '#333333',
+        champagneGold: '#E1C16E',
+        softGrey: '#FFF4EC',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Gotham', 'Inter', 'ui-sans-serif', 'system-ui'],
+        display: ['Cinzel', 'Georgia', 'serif'],
+        heading: ['Cinzel', 'Georgia', 'serif'],
+        body: ['Gotham', 'Inter', 'ui-sans-serif', 'system-ui'],
       },
     },
   },

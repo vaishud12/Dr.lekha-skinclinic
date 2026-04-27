@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import logo from '../Images/1000723428.jpg';
+import logo from '../Images/logo.jpg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Apply scroll effect only on the homepage
@@ -16,6 +17,9 @@ const Header = () => {
       };
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
+    } else {
+      // On non-homepage routes, always show solid header
+      setIsScrolled(true);
     }
   }, [location.pathname]);
 
@@ -38,12 +42,48 @@ const Header = () => {
 
   const navLinks = [
     { path: 'services', label: 'Services' },
-    { path: 'about', label: 'About' },
+    { path: 'about', label: 'About Us' },
     { path: 'contact', label: 'Contact' },
     { path: '/book-appointment', label: 'Book Appointment' },
   ];
 
   const isActive = (path) => location.pathname === path;
+
+  const scrollToSection = (sectionId) => {
+    setIsMenuOpen(false);
+    
+    if (location.pathname !== '/') {
+      // If not on homepage, navigate to homepage first
+      navigate('/');
+      // Wait for navigation and then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    } else {
+      // Already on homepage, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -74,7 +114,7 @@ const Header = () => {
               <img
                 src={logo}
                 alt="Clinic Logo"
-                className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+                className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 object-cover rounded-full border-2 border-primaryTeal/20 shadow-sm"
               />
             </Link>
 
@@ -87,8 +127,8 @@ const Header = () => {
                     to={link.path}
                     className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                       isActive(link.path)
-                        ? isScrolled ? 'text-teal-700 bg-teal-50' : 'text-white bg-teal-600/80'
-                        : isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-50' : 'text-white hover:text-teal-100 hover:bg-white/10'
+                        ? isScrolled ? 'text-primaryTeal bg-teal-50' : 'text-white bg-primaryTeal/80'
+                        : isScrolled ? 'text-gray-700 hover:text-primaryTeal hover:bg-gray-50' : 'text-white hover:text-lotusGold hover:bg-white/10'
                     }`}
                   >
                     {link.label}
@@ -96,9 +136,9 @@ const Header = () => {
                 ) : (
                   <button
                     key={link.path}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => scrollToSection(link.path)}
                     className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                      isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-50' : 'text-white hover:text-teal-100 hover:bg-white/10'
+                      isScrolled ? 'text-gray-700 hover:text-primaryTeal hover:bg-gray-50' : 'text-white hover:text-lotusGold hover:bg-white/10'
                     }`}
                   >
                     {link.label}
@@ -111,7 +151,7 @@ const Header = () => {
             <button
               onClick={() => setIsMenuOpen((prev) => !prev)}
               className={`lg:hidden flex-shrink-0 p-2 rounded-md transition-colors duration-200 ${
-                isScrolled ? 'text-gray-700 hover:text-teal-700 hover:bg-gray-100' : 'text-white hover:text-teal-100 hover:bg-white/10'
+                isScrolled ? 'text-gray-700 hover:text-primaryTeal hover:bg-gray-100' : 'text-white hover:text-lotusGold hover:bg-white/10'
               }`}
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
@@ -140,8 +180,8 @@ const Header = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className={`w-full block px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 ${
                       isActive(link.path)
-                        ? 'text-teal-700 bg-teal-50'
-                        : 'text-gray-700 hover:text-teal-700 hover:bg-gray-50'
+                        ? 'text-primaryTeal bg-teal-50'
+                        : 'text-gray-700 hover:text-primaryTeal hover:bg-gray-50'
                     }`}
                   >
                     {link.label}
@@ -149,8 +189,8 @@ const Header = () => {
                 ) : (
                   <button
                     key={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:text-teal-700 hover:bg-gray-50 transition-colors duration-150"
+                    onClick={() => scrollToSection(link.path)}
+                    className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:text-primaryTeal hover:bg-gray-50 transition-colors duration-150"
                   >
                     {link.label}
                   </button>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { clinicInfo } from '../mock';
-import appointmentImg from '../Images/book-doctor-appointment-card-template-schedule-hospital-visit-editable-social-media-post-design-flat-color-illustration-for-poster-web-banner-ecard-vector.jpg'
-
+import img from '../Images/pngtree-doctor-appointment-vector-image_2242695.jpg';
 const BookAppointment = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -163,7 +162,7 @@ Please confirm the appointment at your earliest convenience.`;
           <div className="w-full flex flex-col">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl flex-1 min-h-[300px]">
               <img
-                src={appointmentImg}
+                src={img}
                 alt="Medical Consultation"
                 className="w-full h-full object-cover"
               />

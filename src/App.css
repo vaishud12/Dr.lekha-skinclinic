@@ -56,19 +56,19 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #14b8a6;
+  background: #36757F; /* Primary Teal */
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0d9488;
+  background: #294B53; /* Deep Forest Teal */
 }
 
 /* Focus states for accessibility */
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid #14b8a6;
+  outline: 2px solid #36757F; /* Primary Teal */
   outline-offset: 2px;
 }
 

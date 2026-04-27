@@ -7,7 +7,7 @@ import {
   Shield, HeartHandshake, Building2, CheckCircle2 
 } from 'lucide-react';
 import { clinicInfo, services, whyChooseUs, testimonials, stats } from '../mock';
-import ctaBgImg from '../Images/1000723428.jpg';
+import ctaBgImg from '../Images/logo.jpg';
 
 const Home = () => {
   const [isStatsVisible, setIsStatsVisible] = useState(false);
@@ -102,7 +102,7 @@ const Home = () => {
         {/* Background Video */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video
-            src={`${process.env.PUBLIC_URL}/kayakal.mp4`}
+            src={`${process.env.PUBLIC_URL}/background.mp4`}
             autoPlay
             loop
             muted
