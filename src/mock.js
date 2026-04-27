@@ -265,8 +265,8 @@ export const blogPosts = [
 export const faqs = {
   weightManagement: [
     {
-      question: "How is medical weight loss different from diet plans?",
-      answer: "Medical weight loss involves comprehensive health evaluation, personalized treatment under doctor supervision, medical-grade interventions when needed, and continuous monitoring of your health parameters. Unlike generic diet plans, we address underlying medical conditions affecting your weight."
+      question: "How is medical weight loss different from diet plans? Do you use GLP-1 medications?",
+      answer: "Medical weight loss involves comprehensive health evaluation, personalized treatment under doctor supervision, and may include advanced interventions like GLP-1 medications when medically appropriate. However, a structured diet plan is always essential - there is no medication or treatment that can replace proper nutrition. GLP-1 medications work best when combined with a medically-tailored diet and lifestyle changes. Unlike generic diet plans, we create personalized nutrition programs while addressing underlying health conditions affecting your weight."
     },
     {
       question: "Is medical weight loss safe?",
@@ -289,6 +289,10 @@ export const faqs = {
     {
       question: "How many sessions are required for acne treatment?",
       answer: "It varies based on acne severity and type. Typically, patients see significant improvement in 4-6 sessions, combined with prescribed medical-grade skincare. We create a customized treatment plan after thorough skin analysis."
+    },
+    {
+      question: "Can you treat hair loss and hair thinning?",
+      answer: "Yes, we offer comprehensive hair loss treatments including medical evaluation to identify the underlying cause (hormonal imbalances, nutritional deficiencies, stress, etc.), followed by targeted treatments such as PRP therapy, mesotherapy, medications, and nutritional supplementation. Treatment plans are customized based on your specific condition."
     },
     {
       question: "Will pigmentation come back after treatment?",
